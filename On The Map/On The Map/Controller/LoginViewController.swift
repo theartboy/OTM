@@ -5,6 +5,8 @@
 //  Created by John McCaffrey on 12/13/18.
 //  Copyright © 2018 John McCaffrey. All rights reserved.
 //
+//TODO: keyboard stuff
+//TODO: constraints
 
 import UIKit
 

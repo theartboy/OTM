@@ -23,7 +23,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        mapView.delegate = self//do I need??
+        mapView.delegate = self//need this or the delegate functions will not run
         
         let london = MKPointAnnotation()
         london.title = "London"
@@ -55,7 +55,7 @@ class MapViewController: UIViewController {
     }
     
     func centerMapOnLocation(location: CLLocation) {
-        let regionRadius: CLLocationDistance = 1000000
+        let regionRadius: CLLocationDistance = 0.10
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)

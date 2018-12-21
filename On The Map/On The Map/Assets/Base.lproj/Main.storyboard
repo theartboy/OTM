@@ -352,20 +352,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ux-3h-GMI">
-                                <rect key="frame" x="164" y="100" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Q1U-Yb-RFM">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ux-3h-GMI">
+                                <rect key="frame" x="48" y="548" width="280" height="30"/>
+                                <color key="backgroundColor" red="0.9519042969" green="0.59882269970000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="UIO-ie-g1U"/>
+                                </constraints>
+                                <state key="normal" title="Finish"/>
+                                <connections>
+                                    <action selector="finishButtonAction:" destination="gOI-qz-Jxi" eventType="touchUpInside" id="g0f-R4-xts"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Q1U-Yb-RFM" secondAttribute="trailing" id="I5e-G8-dcA"/>
+                            <constraint firstItem="Q1U-Yb-RFM" firstAttribute="top" secondItem="d40-ym-h1n" secondAttribute="top" id="K8r-f1-gd9"/>
+                            <constraint firstItem="0Ux-3h-GMI" firstAttribute="centerX" secondItem="Q1U-Yb-RFM" secondAttribute="centerX" id="SqO-lx-Df3"/>
+                            <constraint firstItem="Q1U-Yb-RFM" firstAttribute="leading" secondItem="9ZL-2e-WtJ" secondAttribute="leading" id="hSI-Gj-SLD"/>
+                            <constraint firstAttribute="bottom" secondItem="Q1U-Yb-RFM" secondAttribute="bottom" id="s6R-32-lIc"/>
+                            <constraint firstItem="d40-ym-h1n" firstAttribute="bottom" secondItem="0Ux-3h-GMI" secondAttribute="bottom" constant="40" id="vjk-bk-Hei"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="d40-ym-h1n"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Location" id="iBF-dR-QcA"/>
+                    <connections>
+                        <outlet property="finishButton" destination="0Ux-3h-GMI" id="YHn-7y-LmH"/>
+                        <outlet property="mapView" destination="Q1U-Yb-RFM" id="mp9-Uc-o6P"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7sK-dr-Nf4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4625" y="-54"/>
+            <point key="canvasLocation" x="4624.8000000000002" y="-54.422788605697157"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="UP0-4z-O8W">
