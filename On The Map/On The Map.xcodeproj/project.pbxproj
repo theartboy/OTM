@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7425365921CDE4B900FD8CC0 /* InputTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7425365821CDE4B900FD8CC0 /* InputTextFieldDelegate.swift */; };
 		74C5627721C53FE300E45A43 /* extensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5627621C53FE300E45A43 /* extensionViewController.swift */; };
 		74C5627921C54CA300E45A43 /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5627821C54CA300E45A43 /* DeleteRequest.swift */; };
 		74C5627B21C5AAA500E45A43 /* LocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5627A21C5AAA500E45A43 /* LocationResponse.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7425365821CDE4B900FD8CC0 /* InputTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldDelegate.swift; sourceTree = "<group>"; };
 		74C5627621C53FE300E45A43 /* extensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionViewController.swift; sourceTree = "<group>"; };
 		74C5627821C54CA300E45A43 /* DeleteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRequest.swift; sourceTree = "<group>"; };
 		74C5627A21C5AAA500E45A43 /* LocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResponse.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				74C5627621C53FE300E45A43 /* extensionViewController.swift */,
+				7425365821CDE4B900FD8CC0 /* InputTextFieldDelegate.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -129,6 +132,7 @@
 				74EBE34B21C8858200AC0111 /* credentials.swift */,
 				74C93B6221C400E8005AFABC /* StudentModel.swift */,
 				74C93B6421C4017C005AFABC /* Student.swift */,
+				74EBE34521C7419C00AC0111 /* LoginRequest.swift */,
 				74EBE34D21C8B4A600AC0111 /* UserDataResponse.swift */,
 				74C5627A21C5AAA500E45A43 /* LocationResponse.swift */,
 				74C5627C21C5AB1600E45A43 /* PostSessionResponse.swift */,
@@ -136,7 +140,6 @@
 				74C5628021C6D46B00E45A43 /* PutStudentLocationResponse.swift */,
 				74C5627821C54CA300E45A43 /* DeleteRequest.swift */,
 				74C93B6621C4019F005AFABC /* OTMClient.swift */,
-				74EBE34521C7419C00AC0111 /* LoginRequest.swift */,
 				74EBE34321C7092600AC0111 /* UdacityResponse.swift */,
 				74EBE34721C7446900AC0111 /* ParseResponse.swift */,
 			);
@@ -235,6 +238,7 @@
 				74C93B4921C332BC005AFABC /* LoginViewController.swift in Sources */,
 				74EBE34821C7446900AC0111 /* ParseResponse.swift in Sources */,
 				74C5628321C6D84900E45A43 /* ParseErrorHandlingController.swift in Sources */,
+				7425365921CDE4B900FD8CC0 /* InputTextFieldDelegate.swift in Sources */,
 				74C93B5D21C40060005AFABC /* MapViewController.swift in Sources */,
 				74EBE34621C7419C00AC0111 /* LoginRequest.swift in Sources */,
 				74EBE34421C7092600AC0111 /* UdacityResponse.swift in Sources */,

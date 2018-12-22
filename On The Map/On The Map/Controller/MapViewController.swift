@@ -25,11 +25,14 @@ class MapViewController: UIViewController {
         // Do any additional setup after loading the view.
         mapView.delegate = self//need this or the delegate functions will not run
         
-        let london = MKPointAnnotation()
-        london.title = "London"
-        london.coordinate = CLLocationCoordinate2D(latitude: 44.899221, longitude: -92.875861)
-        london.subtitle = "https://www.theartboy.com/paint"
-        mapView.addAnnotation(london)
+//        let london = MKPointAnnotation()
+//        london.title = "London"
+//        london.coordinate = CLLocationCoordinate2D(latitude: 44.899221, longitude: -92.875861)
+//        london.subtitle = "https://www.theartboy.com/paint"
+//        mapView.addAnnotation(london)
+        
+        
+        
         refreshAnnotations()
     }
     
@@ -55,7 +58,7 @@ class MapViewController: UIViewController {
     }
     
     func centerMapOnLocation(location: CLLocation) {
-        let regionRadius: CLLocationDistance = 0.10
+        let regionRadius: CLLocationDistance = 1000
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -71,7 +74,19 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func addLocationButtonAction(_ sender: Any) {
-        performSegue(withIdentifier: "addLocation", sender: nil)
+//        performSegue(withIdentifier: "addLocation", sender: nil)
+        OTMClient.getStudentLocation(completion: handleCheckForExistingLocationRecord(success:error:))
+    }
+    
+    func handleCheckForExistingLocationRecord(success: Bool, error: Error?) {
+        if success {
+            
+            showWarning(title: "User Pin Exists", message: "Do you want to update your user pin to a new location?")
+
+        } else {
+            performSegue(withIdentifier: "addLocation", sender: nil)
+
+        }
     }
     
     func handleLogoutResponse(success:Bool, error:Error?) {
@@ -85,11 +100,17 @@ class MapViewController: UIViewController {
 
     func showFailure(title: String, message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
-//            self.setLoggingIn(false)
-        }))
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertVC, animated: true)
-//        show(alertVC, sender: nil)
+    }
+    
+    func showWarning(title: String, message: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OVERWRITE", style: .default, handler: {action in
+            self.performSegue(withIdentifier: "addLocation", sender: nil)
+        }))
+        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertVC, animated: true)
     }
 }
 

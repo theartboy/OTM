@@ -30,7 +30,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="2tj-ia-rkD">
                                         <rect key="frame" x="0.0" y="57" width="271" height="56.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6kJ-HZ-ez3">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6kJ-HZ-ez3">
                                                 <rect key="frame" x="0.0" y="0.0" width="271" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="271" id="jaR-iQ-dyE"/>
@@ -50,7 +50,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="FwB-sJ-VFu">
                                         <rect key="frame" x="0.0" y="127.5" width="271" height="62.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uB3-GF-4eJ">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uB3-GF-4eJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="271" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="271" id="C1c-gJ-5FB"/>
@@ -274,7 +274,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lCc-hc-DRa">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="60.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State, or Zip Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ehU-7p-c87">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State, or Zip Code" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ehU-7p-c87">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -291,7 +291,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pdc-aV-XfJ">
                                         <rect key="frame" x="0.0" y="80.5" width="280" height="60.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Link URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uUn-Lg-xHc">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Link URL" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uUn-Lg-xHc">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -366,20 +366,26 @@
                                     <action selector="finishButtonAction:" destination="gOI-qz-Jxi" eventType="touchUpInside" id="g0f-R4-xts"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8NA-Sw-eg5">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Q1U-Yb-RFM" secondAttribute="trailing" id="I5e-G8-dcA"/>
                             <constraint firstItem="Q1U-Yb-RFM" firstAttribute="top" secondItem="d40-ym-h1n" secondAttribute="top" id="K8r-f1-gd9"/>
                             <constraint firstItem="0Ux-3h-GMI" firstAttribute="centerX" secondItem="Q1U-Yb-RFM" secondAttribute="centerX" id="SqO-lx-Df3"/>
+                            <constraint firstItem="8NA-Sw-eg5" firstAttribute="centerX" secondItem="9ZL-2e-WtJ" secondAttribute="centerX" id="h8Y-Pb-BFh"/>
                             <constraint firstItem="Q1U-Yb-RFM" firstAttribute="leading" secondItem="9ZL-2e-WtJ" secondAttribute="leading" id="hSI-Gj-SLD"/>
                             <constraint firstAttribute="bottom" secondItem="Q1U-Yb-RFM" secondAttribute="bottom" id="s6R-32-lIc"/>
+                            <constraint firstItem="8NA-Sw-eg5" firstAttribute="centerY" secondItem="9ZL-2e-WtJ" secondAttribute="centerY" id="sKW-kU-YRH"/>
                             <constraint firstItem="d40-ym-h1n" firstAttribute="bottom" secondItem="0Ux-3h-GMI" secondAttribute="bottom" constant="40" id="vjk-bk-Hei"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d40-ym-h1n"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Location" id="iBF-dR-QcA"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="8NA-Sw-eg5" id="nCW-wq-YBz"/>
                         <outlet property="finishButton" destination="0Ux-3h-GMI" id="YHn-7y-LmH"/>
                         <outlet property="mapView" destination="Q1U-Yb-RFM" id="mp9-Uc-o6P"/>
                     </connections>

@@ -39,7 +39,18 @@ class PinViewController: UIViewController {
     }
     
     @IBAction func addLocationAction(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "addLocation", sender: nil)
+//        performSegue(withIdentifier: "addLocation", sender: nil)
+        OTMClient.getStudentLocation(completion: handleCheckForExistingLocationRecord(success:error:))
+   }
+    
+    func handleCheckForExistingLocationRecord(success: Bool, error: Error?) {
+        if success {
+            showWarning(title: "User Pin Exists", message: "Do you want to update your user pin to a new location?")
+            
+        } else {
+            performSegue(withIdentifier: "addLocation", sender: nil)
+            
+        }
     }
     
     func handleLogoutResponse(success:Bool, error:Error?) {
@@ -53,13 +64,18 @@ class PinViewController: UIViewController {
     
     func showFailure(title: String, message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
-            //            self.setLoggingIn(false)
-        }))
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertVC, animated: true)
-//        show(alertVC, sender: nil)
     }
-
+    
+    func showWarning(title: String, message: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OVERWRITE", style: .default, handler: {action in
+            self.performSegue(withIdentifier: "addLocation", sender: nil)
+        }))
+        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertVC, animated: true)
+    }
 }
 
 extension PinViewController: UITableViewDataSource, UITableViewDelegate {

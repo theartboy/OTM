@@ -12,12 +12,17 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class AddLocationViewController: UIViewController {
+class AddLocationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var locationTextfield: UITextField!
     @IBOutlet weak var linkTextfield: UITextField!
     @IBOutlet weak var findLocationButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    //TODO: after posting new location, call get student locations to update the studentmodel data
+    var locationString:String?
+    var newPlacemark: CLPlacemark?
+    var urlString: String?
+
+    let inputTextFieldDelegate = InputTextFieldDelegate()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,8 +32,11 @@ class AddLocationViewController: UIViewController {
         super.viewDidAppear(false)
         tabBarController?.tabBar.isHidden = true
         setFindLocation(false)
+        
+        locationTextfield.delegate = inputTextFieldDelegate
+        linkTextfield.delegate = inputTextFieldDelegate
     }
-//geocodeAddressString()
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "postLocation" {
             let detailVC = segue.destination as! PostLocationViewController
@@ -38,33 +46,24 @@ class AddLocationViewController: UIViewController {
         }
     }
 
-    var locationString:String?
-    var newPlacemark: CLPlacemark?
-    var urlString: String?
     
     @IBAction func findLocationAction(_ sender: UIButton) {
+        //The geocoder executes this handler regardless of whether the request was successful or unsuccessful
+        //After initiating a forward-geocoding request, do not attempt to initiate another forward- or reverse-geocoding request.
+        setFindLocation(true)
         CLGeocoder().geocodeAddressString(locationTextfield.text!, completionHandler: {(newLocation, error)->Void in
-            if error != nil {
-                self.showFailure(title: "Cannot Find Loation", message: "Please try your address in another format.")
-            } else {
-                self.newPlacemark = newLocation![0]
-                self.locationString = self.locationTextfield.text
-                self.urlString = self.linkTextfield.text
-                self.performSegue(withIdentifier: "postLocation", sender: nil)
-           }
-        })
+                if error != nil {
+                    self.showFailure(title: "Cannot Find Loation", message: "Please try your address in another format.")
+                } else {
+                    self.setFindLocation(false)
+                    self.newPlacemark = newLocation![0]
+                    self.locationString = self.locationTextfield.text
+                    self.urlString = self.linkTextfield.text
+                    self.performSegue(withIdentifier: "postLocation", sender: nil)
+                }
+         })
     }
 
-     
-//    func handleLogoutResponse(success:Bool, error:Error?) {
-//        if success {
-//            //        https://stackoverflow.com/questions/30052587/how-can-i-go-back-to-the-initial-view-controller-in-swift
-//            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//        } else {
-//            showFailure(title: "Unable to Find Location", message: error?.localizedDescription ?? "")
-//        }
-//
-//    }
     func setFindLocation(_ findLocation: Bool) {
         if findLocation {
             activityIndicator.startAnimating()

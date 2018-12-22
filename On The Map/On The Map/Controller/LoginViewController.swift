@@ -10,7 +10,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -18,13 +18,24 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var loginViaWebsiteButton: UIButton!
     
+    let inputTextFieldDelegate = InputTextFieldDelegate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         setLoggingIn(false)
-
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+ 
+        setUpTextFields(tf: emailTextField)
+        setUpTextFields(tf: passwordTextField)
+   }
+    
+    func setUpTextFields(tf: UITextField){
+        tf.delegate = inputTextFieldDelegate
+        tf.text = ""
+    }
    
     @IBAction func signupAction(_ sender: UIButton) {
         let app = UIApplication.shared
@@ -36,8 +47,13 @@ class LoginViewController: UIViewController {
     @IBAction func loginAction(_ sender: UIButton) {
         //update to textfield data
         //TODO: keyboard stuff
-        OTMClient.login(username: credentials.username, password: credentials.password, completion: handleLoginResponse(success:error:))
-        setLoggingIn(true)
+        if emailTextField.text == "" || passwordTextField.text == "" {
+            showLoginFailure(title: "Login Failed", message: "Please provide a username and password.")
+        } else {
+            OTMClient.login(username: emailTextField.text ?? "", password: passwordTextField.text ?? "", completion: handleLoginResponse(success:error:))
+            setLoggingIn(true)
+
+        }
     }
     
     func handleLoginResponse(success:Bool, error:Error?) {
@@ -88,6 +104,38 @@ class LoginViewController: UIViewController {
         }))
         present(alertVC, animated: true)
 //        show(alertVC, sender: nil)
+    }
+    
+    //MARK: Keyboard items
+    @objc func keyboardWillShow(_ notification:Notification){
+        //verify it the bottom textfield before shifting keyboard
+        if emailTextField.isFirstResponder {
+            view.frame.origin.y = -getKeyboardHeight(notification)
+        }
+         if notification.name == UIResponder.keyboardWillHideNotification {
+            view.frame.origin.y = 0
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification:Notification){
+        view.frame.origin.y = 0
+    }
+    
+    func getKeyboardHeight(_ notification:Notification)-> CGFloat{
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    
+    func subscribeToKeyboardNotifications(){
+//        NotificationCenter.default.addObserver(self, selector: keyboardWillShow(Notification), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)    }
+    
+    func unsubscribeFromKeyboardNotifications(){
+//        NotificationCenter.default.removeObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.removeObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)    }
     }
 
 }
