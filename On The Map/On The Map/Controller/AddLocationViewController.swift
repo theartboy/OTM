@@ -49,7 +49,7 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
         setFindLocation(true)
         CLGeocoder().geocodeAddressString(locationTextfield.text!, completionHandler: {(newLocation, error)->Void in
                 if error != nil {
-                    self.showFailure(title: "Cannot Find Loation", message: "Please try your address in another format.")
+                    self.showFailure(title: "Cannot Find Loation", message: error?.localizedDescription ?? "")
                 } else {
                     self.setFindLocation(false)
                     self.newPlacemark = newLocation![0]

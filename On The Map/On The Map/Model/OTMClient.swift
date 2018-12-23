@@ -44,7 +44,7 @@ class OTMClient {
             case .postStudentLocation: return Endpoints.baseParse
             case .putStudentLocation: return Endpoints.baseParse + "/" + Auth.objId
             case .getStudentLocation: return Endpoints.baseParse + "?where=%7B%22uniqueKey%22%3A%22" + Auth.accountKey + "%22%7D"
-            case .getStudentLocations: return Endpoints.baseParse + "?limit=100&order=updatedAt"
+            case .getStudentLocations: return Endpoints.baseParse + "?limit=80&order=-updatedAt"
             case .getUserData: return Endpoints.baseUdacity + "users/" + Auth.accountKey
             case .logout: return Endpoints.baseUdacity + "session"
                 
@@ -147,6 +147,7 @@ class OTMClient {
     
     @discardableResult class func taskforGETRequest<ResponseType: Decodable, ErrorType: Decodable> (url: URL, responseType: ResponseType.Type, errorType: ErrorType.Type, completion: @escaping (ResponseType?, Error?)->Void)->URLSessionTask{
         var request = URLRequest(url: url)
+        print("url: \(request)")
         request.addValue(parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(RESTApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = URLSession.shared
@@ -157,10 +158,12 @@ class OTMClient {
                 }
                 return
             }
-            
+            print("start:  \(String(data: data, encoding: .utf8)!)")
+
             let decoder = JSONDecoder()
             do {
                 let responseObject = try decoder.decode(ResponseType.self, from: data)
+                print("do ro")
                 DispatchQueue.main.async {
                     completion(responseObject, nil)
                 }
@@ -168,6 +171,7 @@ class OTMClient {
                 do {
                     
                     print("do catch do:  \(String(data: data, encoding: .utf8)!)")
+                    print("do catch do")
                     let errorResponse = try decoder.decode(ErrorType.self, from: data)
                     print("error getFunc: \(errorResponse)")
                     DispatchQueue.main.async {
@@ -175,6 +179,7 @@ class OTMClient {
                     }
                 } catch {
                     DispatchQueue.main.async {
+                        print("generic error")
                         completion(nil, error)
                     }
                 }
