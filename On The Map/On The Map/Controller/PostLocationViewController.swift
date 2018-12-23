@@ -5,10 +5,6 @@
 //  Created by John McCaffrey on 12/14/18.
 //  Copyright © 2018 John McCaffrey. All rights reserved.
 //
-//TODO: otm POST
-//TODO: button response function
-//TODO: remember to async
-//TODO: error alertVC
 
 import UIKit
 import MapKit
@@ -29,7 +25,7 @@ class PostLocationViewController: UIViewController {
         // Do any additional setup after loading the view.
         let newPin = MKPointAnnotation()
         newPin.title = locationString
-        newPin.coordinate = (newPlacemark.location?.coordinate)!//CLLocationCoordinate2D(latitude: (newPlacemark.location?.coordinate.latitude)!, longitude: (newPlacemark.location?.coordinate.longitude)!)
+        newPin.coordinate = (newPlacemark.location?.coordinate)!
         newPin.subtitle = urlString
         mapView.addAnnotation(newPin)
         setAddLocation(false)
@@ -38,7 +34,6 @@ class PostLocationViewController: UIViewController {
         super.viewDidAppear(false)
         tabBarController?.tabBar.isHidden = true
         centerMapOnLocation(location: newPlacemark.location!)
-//        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2DMake ((newPlacemark.location?.coordinate.latitude)!, (newPlacemark.location?.coordinate.longitude)!), span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)), animated: true)
     }
     func centerMapOnLocation(location: CLLocation) {
         let regionRadius: CLLocationDistance = 10000
@@ -57,12 +52,7 @@ class PostLocationViewController: UIViewController {
             OTMClient.putNewLocation(locationName: locationString, mediaURL: urlString, lat: lat, lon: lon, completion: handleFinishAction(success:error:))
         }
      }
-//    @IBAction func popVC(_ sender: Any) {
-////        OTMClient.Auth.sessionId = ""
-//        navigationController?.popToRootViewController(animated: true)
-////        https://stackoverflow.com/questions/30052587/how-can-i-go-back-to-the-initial-view-controller-in-swift
-////        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//   }
+
     func handleFinishAction(success: Bool, error: Error?){
         if success {
             OTMClient.getStudentLocations(completion: handleLocationDataResponse(success:error:))

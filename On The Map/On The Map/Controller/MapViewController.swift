@@ -74,7 +74,6 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func addLocationButtonAction(_ sender: Any) {
-//        performSegue(withIdentifier: "addLocation", sender: nil)
         OTMClient.getStudentLocation(completion: handleCheckForExistingLocationRecord(success:error:))
     }
     
@@ -91,7 +90,6 @@ class MapViewController: UIViewController {
     
     func handleLogoutResponse(success:Bool, error:Error?) {
         if success {
-            //        https://stackoverflow.com/questions/30052587/how-can-i-go-back-to-the-initial-view-controller-in-swift
             self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
         } else {
             showFailure(title: "Logout Failed", message: error?.localizedDescription ?? "")

@@ -10,7 +10,7 @@ import Foundation
 
 class OTMClient {
     
-    static let apiKey = "91fcf4d7c9405128220d9e2ef079a9e9"//REMOVE
+    static let apiKey = "91fcf4d7c9405128220d9e2ef079a9e9"
     
     static let parseApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
     static let RESTApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
@@ -63,7 +63,6 @@ class OTMClient {
         Auth.sessionId = ""
         Auth.objId = ""
         var request = URLRequest(url: Endpoints.logout.url)
-            //URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
         
         request.httpMethod = "DELETE"
         var xsrfCookie: HTTPCookie? = nil
@@ -90,6 +89,20 @@ class OTMClient {
             }
         }
         task.resume()
+    }
+    
+    class func login(username: String, password: String, completion: @escaping (Bool, Error?)->Void){
+        let bodyItem = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: .utf8)
+        
+        taskForPOSTRequest(url: Endpoints.login.url, responseType: PostSessionResponse.self, errorType: UdacityResponse.self, body: bodyItem!) { (response, error) in
+            if let response = response {
+                Auth.sessionId = response.session.id
+                Auth.accountKey = response.account.key
+                completion(true, nil)
+            } else {
+                completion(false,error)
+            }
+        }
     }
     
     class func getUserData(completion: @escaping(Bool, Error?)->Void){
@@ -132,21 +145,45 @@ class OTMClient {
         task.resume()
     }
     
-    class func login(username: String, password: String, completion: @escaping (Bool, Error?)->Void){
-        let bodyItem = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".data(using: .utf8)
-
-        taskForPOSTRequest(url: Endpoints.login.url, responseType: PostSessionResponse.self, errorType: UdacityResponse.self, body: bodyItem!) { (response, error) in
-            if let response = response {
-                Auth.sessionId = response.session.id
-                Auth.accountKey = response.account.key
-                completion(true, nil)
-            } else {
-                completion(false,error)
+    @discardableResult class func taskforGETRequest<ResponseType: Decodable, ErrorType: Decodable> (url: URL, responseType: ResponseType.Type, errorType: ErrorType.Type, completion: @escaping (ResponseType?, Error?)->Void)->URLSessionTask{
+        var request = URLRequest(url: url)
+        request.addValue(parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue(RESTApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(ResponseType.self, from: data)
+                DispatchQueue.main.async {
+                    completion(responseObject, nil)
+                }
+            } catch {
+                do {
+                    
+                    print("do catch do:  \(String(data: data, encoding: .utf8)!)")
+                    let errorResponse = try decoder.decode(ErrorType.self, from: data)
+                    print("error getFunc: \(errorResponse)")
+                    DispatchQueue.main.async {
+                        completion(nil, errorResponse as? Error)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                }
             }
         }
+        task.resume()
+        return task
     }
-    
-    
+
     class func taskForPOSTRequest<ResponseType: Decodable, ErrorType: Decodable>(url: URL, responseType: ResponseType.Type, errorType: ErrorType.Type, body: Data, completion: @escaping (ResponseType?, Error?) -> Void) {
         var request = URLRequest(url: url)
         print(request)
@@ -188,7 +225,42 @@ class OTMClient {
         task.resume()
     }
 
+    class func getStudentLocations(completion: @escaping (Bool, Error?) -> Void) {
+        taskforGETRequest(url: Endpoints.getStudentLocations.url, responseType: LocationResponse.self, errorType: ParseResponse.self) { (response, error) in
+            if let response = response {
+                DispatchQueue.main.async {
+                    StudentModel.students = response.results
+                    completion(true, nil)
+                }
+            } else {
+                completion(false, error)
+            }
+        }
+        
+    }
+    class func getStudentLocation(completion: @escaping (Bool, Error?) -> Void) {
+        taskforGETRequest(url: Endpoints.getStudentLocation.url, responseType: LocationResponse.self, errorType: ParseResponse.self) { (response, error) in
+            if let response = response {
+                DispatchQueue.main.async {
+                    if response.results.count == 0 {
+                        completion(false, nil)
+                    } else {
+                        print("location record found")
+                        print("location objId: \(response.results[0].objectId)")
+                        Auth.objId = response.results[0].objectId
+                        completion(true, nil)
+                    }
+                    
+                }
+            } else {
+                print("location error: \(String(describing: error))")
+                completion(false, error)
+            }
+        }
+        
+    }
     
+
     class func postNewLocation(locationName: String, mediaURL: String, lat: Double, lon: Double, completion: @escaping (Bool, Error?)->Void){
         let bodyItem = "{\"uniqueKey\": \"\(Auth.accountKey)\", \"firstName\": \"\(Auth.userFirstName)\", \"lastName\": \"\(Auth.userLastName)\",\"mapString\": \"\(locationName)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(lon)}"
         var request = URLRequest(url: Endpoints.postStudentLocation.url)
@@ -253,6 +325,7 @@ class OTMClient {
             let decoder = JSONDecoder()
             do {
                 let responseObject = try decoder.decode(PutStudentLocationResponse.self, from: data)
+                print("RespObj PUT: \(responseObject)")
                 DispatchQueue.main.async {
                     completion(true, nil)
                 }
@@ -272,83 +345,6 @@ class OTMClient {
         task.resume()
     }
 
-    class func getStudentLocations(completion: @escaping (Bool, Error?) -> Void) {
-        taskforGETRequest(url: Endpoints.getStudentLocations.url, responseType: LocationResponse.self, errorType: ParseResponse.self) { (response, error) in
-            if let response = response {
-                DispatchQueue.main.async {
-                    StudentModel.students = response.results
-                    completion(true, nil)
-                }
-            } else {
-                completion(false, error)
-            }
-        }
-        
-    }
-    class func getStudentLocation(completion: @escaping (Bool, Error?) -> Void) {
-        taskforGETRequest(url: Endpoints.getStudentLocation.url, responseType: LocationResponse.self, errorType: ParseResponse.self) { (response, error) in
-            if let response = response {
-                 DispatchQueue.main.async {
-                    if response.results.count == 0 {
-                        completion(false, nil)
-                    } else {
-                        print("location record found")
-                        print("location objId: \(response.results[0].objectId)")
-                        Auth.objId = response.results[0].objectId
-                        completion(true, nil)
-                    }
  
-                }
-            } else {
-                print("location error: \(String(describing: error))")
-                completion(false, error)
-            }
-        }
-        
-    }
-
-    @discardableResult class func taskforGETRequest<ResponseType: Decodable, ErrorType: Decodable> (url: URL, responseType: ResponseType.Type, errorType: ErrorType.Type, completion: @escaping (ResponseType?, Error?)->Void)->URLSessionTask{
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-        var request = URLRequest(url: url)
-//        print("url: \(url)")
-        request.addValue(parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(RESTApiKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
-                return
-            }
-//            print(String(data: data, encoding: .utf8)!)
-
-           let decoder = JSONDecoder()
-            do {
-                let responseObject = try decoder.decode(ResponseType.self, from: data)
-//                print("do: \(responseObject)")
-                DispatchQueue.main.async {
-                    completion(responseObject, nil)
-                }
-            } catch {
-                do {
-                    
-                    print("do catch do:  \(String(data: data, encoding: .utf8)!)")
-                    let errorResponse = try decoder.decode(ErrorType.self, from: data)
-                    print("error getFunc: \(errorResponse)")
-                    DispatchQueue.main.async {
-                        completion(nil, errorResponse as? Error)
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion(nil, error)
-                    }
-                }
-            }
-        }
-        task.resume()
-        return task
-    }
-
 
 }

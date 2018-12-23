@@ -22,7 +22,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         setLoggingIn(false)
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -43,10 +42,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         app.open(URLtoOpen)
     }
     
-    //    https://auth.udacity.com/sign-up
     @IBAction func loginAction(_ sender: UIButton) {
-        //update to textfield data
-        //TODO: keyboard stuff
         if emailTextField.text == "" || passwordTextField.text == "" {
             showLoginFailure(title: "Login Failed", message: "Please provide a username and password.")
         } else {
@@ -67,7 +63,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func handleUserDataResponse(success:Bool, error:Error?) {
         if success {
             OTMClient.getStudentLocations(completion: handleLocationDataResponse(success:error:))
-            print("number of records \(StudentModel.students.count)")
             
         } else {
             showLoginFailure(title: "User Data Error", message: error?.localizedDescription ?? "")
@@ -103,12 +98,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.setLoggingIn(false)
         }))
         present(alertVC, animated: true)
-//        show(alertVC, sender: nil)
     }
     
     //MARK: Keyboard items
     @objc func keyboardWillShow(_ notification:Notification){
-        //verify it the bottom textfield before shifting keyboard
         if emailTextField.isFirstResponder {
             view.frame.origin.y = -getKeyboardHeight(notification)
         }
@@ -128,15 +121,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func subscribeToKeyboardNotifications(){
-//        NotificationCenter.default.addObserver(self, selector: keyboardWillShow(Notification), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)    }
     
-    func unsubscribeFromKeyboardNotifications(){
-//        NotificationCenter.default.removeObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        NotificationCenter.default.removeObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)    }
-    }
 
 }
 

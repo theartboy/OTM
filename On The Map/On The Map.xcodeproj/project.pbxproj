@@ -8,13 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7425365921CDE4B900FD8CC0 /* InputTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7425365821CDE4B900FD8CC0 /* InputTextFieldDelegate.swift */; };
-		74C5627721C53FE300E45A43 /* extensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5627621C53FE300E45A43 /* extensionViewController.swift */; };
 		74C5627921C54CA300E45A43 /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5627821C54CA300E45A43 /* DeleteRequest.swift */; };
 		74C5627B21C5AAA500E45A43 /* LocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5627A21C5AAA500E45A43 /* LocationResponse.swift */; };
 		74C5627D21C5AB1700E45A43 /* PostSessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5627C21C5AB1600E45A43 /* PostSessionResponse.swift */; };
 		74C5627F21C6D40600E45A43 /* PostStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5627E21C6D40600E45A43 /* PostStudentLocationResponse.swift */; };
 		74C5628121C6D46B00E45A43 /* PutStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5628021C6D46B00E45A43 /* PutStudentLocationResponse.swift */; };
-		74C5628321C6D84900E45A43 /* ParseErrorHandlingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5628221C6D84900E45A43 /* ParseErrorHandlingController.swift */; };
 		74C93B4721C332BC005AFABC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C93B4621C332BC005AFABC /* AppDelegate.swift */; };
 		74C93B4921C332BC005AFABC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C93B4821C332BC005AFABC /* LoginViewController.swift */; };
 		74C93B4C21C332BC005AFABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C93B4A21C332BC005AFABC /* Main.storyboard */; };
@@ -36,13 +34,11 @@
 
 /* Begin PBXFileReference section */
 		7425365821CDE4B900FD8CC0 /* InputTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldDelegate.swift; sourceTree = "<group>"; };
-		74C5627621C53FE300E45A43 /* extensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionViewController.swift; sourceTree = "<group>"; };
 		74C5627821C54CA300E45A43 /* DeleteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRequest.swift; sourceTree = "<group>"; };
 		74C5627A21C5AAA500E45A43 /* LocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResponse.swift; sourceTree = "<group>"; };
 		74C5627C21C5AB1600E45A43 /* PostSessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSessionResponse.swift; sourceTree = "<group>"; };
 		74C5627E21C6D40600E45A43 /* PostStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStudentLocationResponse.swift; sourceTree = "<group>"; };
 		74C5628021C6D46B00E45A43 /* PutStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutStudentLocationResponse.swift; sourceTree = "<group>"; };
-		74C5628221C6D84900E45A43 /* ParseErrorHandlingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseErrorHandlingController.swift; sourceTree = "<group>"; };
 		74C93B4321C332BC005AFABC /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C93B4621C332BC005AFABC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74C93B4821C332BC005AFABC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +108,6 @@
 				74C93B5E21C40077005AFABC /* PinViewController.swift */,
 				74C93B8821C483AE005AFABC /* AddLocationViewController.swift */,
 				74C93B8A21C483D0005AFABC /* PostLocationViewController.swift */,
-				74C5628221C6D84900E45A43 /* ParseErrorHandlingController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -120,7 +115,6 @@
 		74C93B5921C333A3005AFABC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				74C5627621C53FE300E45A43 /* extensionViewController.swift */,
 				7425365821CDE4B900FD8CC0 /* InputTextFieldDelegate.swift */,
 			);
 			path = View;
@@ -237,7 +231,6 @@
 				74C93B8921C483AE005AFABC /* AddLocationViewController.swift in Sources */,
 				74C93B4921C332BC005AFABC /* LoginViewController.swift in Sources */,
 				74EBE34821C7446900AC0111 /* ParseResponse.swift in Sources */,
-				74C5628321C6D84900E45A43 /* ParseErrorHandlingController.swift in Sources */,
 				7425365921CDE4B900FD8CC0 /* InputTextFieldDelegate.swift in Sources */,
 				74C93B5D21C40060005AFABC /* MapViewController.swift in Sources */,
 				74EBE34621C7419C00AC0111 /* LoginRequest.swift in Sources */,
@@ -246,7 +239,6 @@
 				74C93B8B21C483D0005AFABC /* PostLocationViewController.swift in Sources */,
 				74C5627D21C5AB1700E45A43 /* PostSessionResponse.swift in Sources */,
 				74C5627F21C6D40600E45A43 /* PostStudentLocationResponse.swift in Sources */,
-				74C5627721C53FE300E45A43 /* extensionViewController.swift in Sources */,
 				74C5627921C54CA300E45A43 /* DeleteRequest.swift in Sources */,
 				74C93B4721C332BC005AFABC /* AppDelegate.swift in Sources */,
 			);

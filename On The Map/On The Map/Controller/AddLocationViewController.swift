@@ -5,8 +5,7 @@
 //  Created by John McCaffrey on 12/14/18.
 //  Copyright © 2018 John McCaffrey. All rights reserved.
 //
-//TODO: keyboard stuff
-//TODO: activity indicator
+
 
 import UIKit
 import CoreLocation
@@ -26,7 +25,6 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
@@ -48,8 +46,6 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
 
     
     @IBAction func findLocationAction(_ sender: UIButton) {
-        //The geocoder executes this handler regardless of whether the request was successful or unsuccessful
-        //After initiating a forward-geocoding request, do not attempt to initiate another forward- or reverse-geocoding request.
         setFindLocation(true)
         CLGeocoder().geocodeAddressString(locationTextfield.text!, completionHandler: {(newLocation, error)->Void in
                 if error != nil {
@@ -83,7 +79,6 @@ class AddLocationViewController: UIViewController, UITextFieldDelegate {
                         self.setFindLocation(false)
         }))
         present(alertVC, animated: true)
-//        show(alertVC, sender: nil)
     }
 }
 
