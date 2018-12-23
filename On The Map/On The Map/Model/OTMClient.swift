@@ -170,7 +170,7 @@ class OTMClient {
             } catch {
                 do {
                     
-                    print("do catch do:  \(String(data: data, encoding: .utf8)!)")
+//                    print("do catch do:  \(String(data: data, encoding: .utf8)!)")
                     print("do catch do")
                     let errorResponse = try decoder.decode(ErrorType.self, from: data)
                     print("error getFunc: \(errorResponse)")
