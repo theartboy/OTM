@@ -28,7 +28,6 @@
 		74EBE34421C7092600AC0111 /* UdacityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBE34321C7092600AC0111 /* UdacityResponse.swift */; };
 		74EBE34621C7419C00AC0111 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBE34521C7419C00AC0111 /* LoginRequest.swift */; };
 		74EBE34821C7446900AC0111 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBE34721C7446900AC0111 /* ParseResponse.swift */; };
-		74EBE34C21C8858200AC0111 /* credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBE34B21C8858200AC0111 /* credentials.swift */; };
 		74EBE34E21C8B4A600AC0111 /* UserDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBE34D21C8B4A600AC0111 /* UserDataResponse.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +55,6 @@
 		74EBE34321C7092600AC0111 /* UdacityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdacityResponse.swift; sourceTree = "<group>"; };
 		74EBE34521C7419C00AC0111 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		74EBE34721C7446900AC0111 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
-		74EBE34B21C8858200AC0111 /* credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = credentials.swift; sourceTree = "<group>"; };
 		74EBE34D21C8B4A600AC0111 /* UserDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,7 +121,6 @@
 		74C93B5A21C333AB005AFABC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				74EBE34B21C8858200AC0111 /* credentials.swift */,
 				74C93B6221C400E8005AFABC /* StudentModel.swift */,
 				74C93B6421C4017C005AFABC /* Student.swift */,
 				74EBE34521C7419C00AC0111 /* LoginRequest.swift */,
@@ -223,7 +220,6 @@
 			files = (
 				74C93B5F21C40077005AFABC /* PinViewController.swift in Sources */,
 				74C93B6721C4019F005AFABC /* OTMClient.swift in Sources */,
-				74EBE34C21C8858200AC0111 /* credentials.swift in Sources */,
 				74EBE34E21C8B4A600AC0111 /* UserDataResponse.swift in Sources */,
 				74C93B6321C400E8005AFABC /* StudentModel.swift in Sources */,
 				74C5628121C6D46B00E45A43 /* PutStudentLocationResponse.swift in Sources */,
