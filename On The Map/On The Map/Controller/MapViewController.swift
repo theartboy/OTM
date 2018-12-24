@@ -42,7 +42,8 @@ class MapViewController: UIViewController {
         print("student pin list: \(StudentModel.students.count)")
         print("pins\(mapView.annotations.count)")
         mapView.reloadInputViews()
-    }
+        refreshAnnotations()
+   }
     
     func refreshAnnotations(){
         for annon in mapView.annotations {

@@ -57,16 +57,15 @@ class PostLocationViewController: UIViewController {
         if success {
             OTMClient.getStudentLocations(completion: handleLocationDataResponse(success:error:))
         } else {
-            showFailure(title: "Add Location Failed", message: error?.localizedDescription ?? "")
+            showFailure(title: "Location Not Saved", message: error?.localizedDescription ?? "")
         }
     }
  
     func handleLocationDataResponse(success:Bool, error:Error?) {
         if success {
-            setAddLocation(false)
             navigationController?.popToRootViewController(animated: true)
         } else {
-            showFailure(title: "Location Data Failed", message: error?.localizedDescription ?? "")
+            showFailure(title: "Location Data Failed to Load", message: error?.localizedDescription ?? "")
         }
     }
 
@@ -84,7 +83,9 @@ class PostLocationViewController: UIViewController {
     
     func showFailure(title: String, message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
+            self.setAddLocation(false)
+        }))
         present(alertVC, animated: true)
     }
 

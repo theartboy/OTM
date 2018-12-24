@@ -24,8 +24,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         setLoggingIn(false)
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
  
         setUpTextFields(tf: emailTextField)
         setUpTextFields(tf: passwordTextField)

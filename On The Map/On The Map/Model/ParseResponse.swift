@@ -13,6 +13,7 @@ struct ParseResponse: Codable {
     let stringValue: String
     let intValue: Int
     let underlyingError: String
+    let debugDescription: String
 }
 extension ParseResponse: LocalizedError {
     var errorDescription: String? {

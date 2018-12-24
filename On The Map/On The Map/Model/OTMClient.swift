@@ -44,7 +44,7 @@ class OTMClient {
             case .postStudentLocation: return Endpoints.baseParse
             case .putStudentLocation: return Endpoints.baseParse + "/" + Auth.objId
             case .getStudentLocation: return Endpoints.baseParse + "?where=%7B%22uniqueKey%22%3A%22" + Auth.accountKey + "%22%7D"
-            case .getStudentLocations: return Endpoints.baseParse + "?limit=80&order=-updatedAt"
+            case .getStudentLocations: return Endpoints.baseParse + "?limit=100&order=-updatedAt"
             case .getUserData: return Endpoints.baseUdacity + "users/" + Auth.accountKey
             case .logout: return Endpoints.baseUdacity + "session"
                 
@@ -171,7 +171,7 @@ class OTMClient {
                 do {
                     
 //                    print("do catch do:  \(String(data: data, encoding: .utf8)!)")
-                    print("do catch do")
+                    print("do catch do \(error)")
                     let errorResponse = try decoder.decode(ErrorType.self, from: data)
                     print("error getFunc: \(errorResponse)")
                     DispatchQueue.main.async {
