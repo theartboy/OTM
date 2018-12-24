@@ -24,7 +24,7 @@ class PostLocationViewController: UIViewController {
         mapView.delegate = self
         // Do any additional setup after loading the view.
         let newPin = MKPointAnnotation()
-        newPin.title = locationString
+        newPin.title = "\(OTMClient.Auth.userFirstName) \(OTMClient.Auth.userLastName)"
         newPin.coordinate = (newPlacemark.location?.coordinate)!
         newPin.subtitle = urlString
         mapView.addAnnotation(newPin)

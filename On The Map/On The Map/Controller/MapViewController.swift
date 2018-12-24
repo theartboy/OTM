@@ -51,7 +51,8 @@ class MapViewController: UIViewController {
         }
         for student in StudentModel.students {
             let pin = MKPointAnnotation()
-            pin.title = student.mapString
+//            pin.title = student.mapString
+            pin.title = "\(student.firstName) \(student.lastName)"
             pin.coordinate = CLLocationCoordinate2D(latitude: student.latitude, longitude: student.longitude)
             pin.subtitle = student.mediaURL
             self.mapView.addAnnotation(pin)
